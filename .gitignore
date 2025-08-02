@@ -1,0 +1,65 @@
+/app/Config
+/app/tmp
+/lib/Cake/Console/Templates/skel/tmp/
+/plugins
+/vendors
+.DS_Store
+tags
+
+# Ignore large files and directories
+*.zip
+*.sql
+*.pdf
+zip*
+*.log
+*.tmp
+
+# Ignore database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore large media files
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.recording
+
+# Ignore backup files
+*.bak
+*.backup
+*~
+
+# Ignore OS generated files
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore temporary files
+tmp/
+temp/
+cache/
+
+# Ignore vendor directories (can be large)
+vendor/
+node_modules/
+
+# Ignore specific large directories and files
+app/webroot/multitendancy_info/
+app/webroot/files/reports/
+app/Vendor/hope_data.sql
+
+# Ignore any zip files in root
+zip*
