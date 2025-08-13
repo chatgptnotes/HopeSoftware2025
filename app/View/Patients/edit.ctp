@@ -1145,11 +1145,11 @@ echo $this->Form->hidden('patient_id',array('id'=>'patientID'));
         
 		//to display the default values of referral dosctors by Swati Neole
 		var familyknowndoctor = $("#familyknowndoctor").val();
+		getConsultantForEdit();
 		if(familyknowndoctor != ''){
-			getConsultantForEdit();
 			refferalAutocomplete(familyknowndoctor);
 			$("#doctorlisting").show();
-		}	
+		}
 		if(('<?php echo $someData['Person']['pregnant_week']?>')){
 			$(".pregnant").show();
 			}else{
@@ -2025,6 +2025,11 @@ echo $this->Form->hidden('patient_id',array('id'=>'patientID'));
 		                $('#busy-indicator').hide('fast');	
 		                return false;
 		            }
+		        },
+		        error: function(xhr, status, error) {
+		            $("#refferalDoctorArea").show();
+		            $("#refferalDocSearch").show();
+		            $('#busy-indicator').hide('fast');
 		        },
 		        messages: {
 		            noResults: '',
