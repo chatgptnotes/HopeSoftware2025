@@ -318,14 +318,21 @@ class ServiceBill extends AppModel {
 	function ServicesUpdate($serviceData,$encId,$catKey,$billId,$percent,$modified){
 		$session = new cakeSession();
 		$modified_by=$session->read('userid');
+		
+		$serviceKeys = array_keys($serviceData);
+		$allServiceData = $this->find('all', array(
+			'fields'=>array('ServiceBill.id','ServiceBill.amount','ServiceBill.no_of_times',
+							'ServiceBill.paid_amount','ServiceBill.discount'),
+			'conditions'=>array('ServiceBill.id'=>$serviceKeys,'ServiceBill.patient_id'=>$encId),
+			'indexBy'=>'ServiceBill.id'
+		));
+		
+		$billTariffId = array();
 		foreach($serviceData as $serviceKey=>$eachData){
-			$singleServiceData='';$amtToPay=0;$serDiscount=0;$serpaid=0;
-			$singleServiceData=$this->find('first',
-					array('fields'=>array('ServiceBill.amount','ServiceBill.no_of_times','ServiceBill.paid_amount',
-							'ServiceBill.discount'),
-							'conditions'=>array('ServiceBill.id'=>$serviceKey,'ServiceBill.patient_id'=>$encId,
-							)));
-			$billTariffId[]=$serviceKey; //tariff_list_id serialize array
+			if(!isset($allServiceData[$serviceKey])) continue;
+			
+			$singleServiceData = $allServiceData[$serviceKey];
+			$billTariffId[]=$serviceKey;
 			$amtToPay=($eachData['balAmt']*$percent)/100;
 			$serpaid=$amtToPay+$singleServiceData['ServiceBill']['paid_amount'];
 			$serDiscount=($singleServiceData['ServiceBill']['amount']*$singleServiceData['ServiceBill']['no_of_times'])-($serpaid);
